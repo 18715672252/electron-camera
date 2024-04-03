@@ -5,18 +5,19 @@ import icon from '../../resources/icon.png?asset'
 
 function createWindow(): void {
   // Create the browser window.
-  const { width } = screen.getPrimaryDisplay().workAreaSize
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize
   const w = 300,
     h = 300
   const mainWindow = new BrowserWindow({
     width: w,
     height: h,
     x: width - w,
-    y: 0,
+    y: height - h,
     show: false,
     autoHideMenuBar: true,
     frame: false,
     alwaysOnTop: true,
+    // resizable: false,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -27,7 +28,7 @@ function createWindow(): void {
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
-
+  mainWindow.setAspectRatio(1)
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
     return { action: 'deny' }
