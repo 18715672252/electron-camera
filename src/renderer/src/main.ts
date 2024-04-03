@@ -1,4 +1,5 @@
 import './assets/base.css'
+import './assets/global.scss'
 import 'element-plus/dist/index.css'
 import './assets/twilwind.css'
 
