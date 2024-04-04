@@ -1,4 +1,14 @@
-import { app, shell, BrowserWindow, ipcMain, screen } from 'electron'
+import {
+  app,
+  shell,
+  BrowserWindow,
+  ipcMain,
+  screen,
+  Menu,
+  IpcMainEvent,
+  MenuItemConstructorOptions,
+  PopupOptions
+} from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -77,6 +87,19 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+const temp = [
+  {
+    role: 'quit'
+  }
+] as MenuItemConstructorOptions[]
+const menu = Menu.buildFromTemplate(temp)
+
+ipcMain.on('quit', (event: IpcMainEvent) => {
+  const eventWin = BrowserWindow.fromWebContents(event.sender)
+  const opt = { window: eventWin } as PopupOptions
+  menu.popup(opt)
 })
 
 // In this file you can include the rest of your app"s specific main process
