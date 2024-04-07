@@ -1,10 +1,16 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-
+export type mouseMoveType = {
+  x: number
+  y: number
+}
 // Custom APIs for renderer
 const api = {
   quit: () => {
     ipcRenderer.send('quit')
+  },
+  mouseMove: (opt: mouseMoveType) => {
+    ipcRenderer.send('mouseMove', opt)
   }
 }
 

@@ -3,8 +3,11 @@ import { ref } from 'vue'
 import { Setting as SettingIcon, CameraFive, InnerShadowBottomLeft } from '@icon-park/vue-next'
 import Camera from './components/Camera.vue'
 import Steting from './components/Steting.vue'
-const page = ref<'camera' | 'setting'>('setting')
-const round = ref<boolean>(false)
+// import useDrag from './composables/useDrag'
+// const drag = new useDrag()
+// drag.run()
+const page = ref<'camera' | 'setting'>('camera')
+const round = ref<boolean>(true)
 const setRound = () => {
   round.value = !round.value
 }

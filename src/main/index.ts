@@ -7,18 +7,20 @@ import {
   Menu,
   IpcMainEvent,
   MenuItemConstructorOptions,
-  PopupOptions
+  PopupOptions,
+  Tray,
+  nativeImage
 } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-
+let mainWindow: BrowserWindow
 function createWindow(): void {
   // Create the browser window.
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
   const w = 300,
     h = 300
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: w,
     height: h,
     x: width - w,
@@ -57,10 +59,20 @@ function createWindow(): void {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+let tray: Tray | null = null
+app.on('ready', () => {
+  const temp = [{ label: '11' }, { label: '22' }, { label: '33' }]
+  const menu = Menu.buildFromTemplate(temp)
+  const icon = nativeImage.createFromPath(join(__dirname, 'bitbug_favicon.ico'))
+  tray = new Tray(icon)
+  tray.setTitle('8888888888')
+  tray.setToolTip('1111111111')
+  tray.setContextMenu(menu)
+  console.log(tray)
+})
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
-
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
   // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
@@ -102,5 +114,11 @@ ipcMain.on('quit', (event: IpcMainEvent) => {
   menu.popup(opt)
 })
 
+ipcMain.on('mouseMove', (_event: IpcMainEvent, { x, y }) => {
+  console.log(x, y)
+  const [x1, y1] = mainWindow.getPosition()
+  mainWindow.setBounds({ x: x + x1, y: y + y1 })
+  // mainWindow.setPosition(x + x1, y + y1)
+})
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
