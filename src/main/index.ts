@@ -11,9 +11,9 @@ import {
   Tray,
   nativeImage
 } from 'electron'
-import { join } from 'path'
+import { join, resolve } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
+const icon = nativeImage.createFromPath(resolve(__dirname, '../../build/icon.ico'))
 let mainWindow: BrowserWindow
 function createWindow(): void {
   // Create the browser window.
@@ -31,7 +31,7 @@ function createWindow(): void {
     alwaysOnTop: true,
     transparent: true,
     // resizable: false,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
@@ -63,10 +63,9 @@ let tray: Tray | null = null
 app.on('ready', () => {
   const temp = [{ label: '11' }, { label: '22' }, { label: '33' }]
   const menu = Menu.buildFromTemplate(temp)
-  const icon = nativeImage.createFromPath(join(__dirname, 'bitbug_favicon.ico'))
   tray = new Tray(icon)
-  tray.setTitle('8888888888')
-  tray.setToolTip('1111111111')
+  // tray.setTitle('8888888888')
+  tray.setToolTip('摄像头')
   tray.setContextMenu(menu)
   console.log(tray)
 })

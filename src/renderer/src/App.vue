@@ -18,6 +18,10 @@ const quit = () => {
 
 <template>
   <main class="relative group nodrag" @contextmenu.prevent="quit">
+    <div
+      class="absolute z-100 left-0 top-1/2 -translate-y-1/2 drag"
+      style="height: 50%; width: 95%"
+    ></div>
     <section>
       <SettingIcon
         v-if="page === 'camera'"

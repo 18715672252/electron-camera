@@ -1,10 +1,10 @@
 import { ref } from 'vue'
 
 export type ConfigType = {
-  deviceId: string
+  deviceId: string,
 }
 
-const config: ConfigType = ref<ConfigType>({
+const config = ref<ConfigType>({
   deviceId: ''
 })
 

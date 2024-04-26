@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useConfig, { ConfigType } from '../composables/useConfig'
+import useConfig from '../composables/useConfig'
 import { onMounted, defineProps, toRefs } from 'vue'
 const config = useConfig()
 // const devices = await navigator.mediaDevices.enumerateDevices()
@@ -9,7 +9,7 @@ const { round } = toRefs(props)
 onMounted(() => {
   const constraints = {
     audio: false,
-    video: { deviceId: config.deviceId }
+    video: { deviceId: config.value.deviceId }
   } as MediaStreamConstraints
   const video = document.querySelector('video')!
 

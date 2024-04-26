@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: ele-camera
+appId: com.sun.app
+productName: 桌面摄像头
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: ele-camera
+  executableName: camera
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
